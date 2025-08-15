@@ -32,11 +32,11 @@ public class Account {
     private String name;
 
     /**
-     * Пароль.
+     * Хэш пароля.
      */
     @NotNull
-    @Column(name = "password")
-    private String password;
+    @Column(name = "password_hash")
+    private String passwordHash;
 
     /**
      * Роль пользователя.
