@@ -19,5 +19,5 @@ public interface AccountService {
      * @param id идентификатор аккаунта.
      * @return {@link AccountDto} аккаунт пользователя.
      */
-    AccountDto getAccount(Long id);
+    AccountDto getAccountById(Long id);
 }

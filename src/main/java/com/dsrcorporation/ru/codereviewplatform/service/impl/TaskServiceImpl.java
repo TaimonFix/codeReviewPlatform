@@ -35,9 +35,10 @@ public class TaskServiceImpl implements TaskService {
      *
      * @param id идентификатор задачи
      * @return {@link TaskDto} данные о задаче.
+     * @throws EntityNotFoundException в случае, если задачи нет в БД.
      */
     @Override
-    public TaskDto getTask(Long id) {
+    public TaskDto getTaskById(Long id) {
         return taskMapper.toDto(taskRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Задание с id '" + id + "' не найдено.")));
     }

@@ -23,7 +23,7 @@ public interface TaskService {
      * @param id идентификатор задачи
      * @return {@link TaskDto} данные о задаче.
      */
-    TaskDto getTask(Long id);
+    TaskDto getTaskById(Long id);
 
     /**
      * Получить все задачи.
