@@ -28,6 +28,6 @@ public class AccountRole {
      * Название роли.
      */
     @NotNull
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 }

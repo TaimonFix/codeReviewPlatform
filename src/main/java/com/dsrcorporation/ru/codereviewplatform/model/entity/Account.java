@@ -28,7 +28,7 @@ public class Account {
      * Имя пользователя.
      */
     @NotNull
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     /**
