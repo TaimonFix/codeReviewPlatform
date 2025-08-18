@@ -14,8 +14,17 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     /**
      * Поиск аккаунта по имени.
+     *
      * @param name имя пользователя
      * @return данные об аккаунте
      */
     Optional<Account> findByName(String name);
+
+    /**
+     * Существует ли пользователь в БД.
+     *
+     * @param name имя пользователя.
+     * @return true - существует, false - нет.
+     */
+    boolean existsByName(String name);
 }

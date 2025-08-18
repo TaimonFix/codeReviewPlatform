@@ -4,6 +4,7 @@ import com.dsrcorporation.ru.codereviewplatform.model.dto.AccountDto;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.Account;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Маппер для работы с аккаунтами.
@@ -17,6 +18,7 @@ public interface AccountMapper {
      * @param account сущность "аккаунт".
      * @return {@link AccountDto} dto "аккаунта".
      */
+    @Mapping(source ="passwordHash", target = "password")
     AccountDto toDto(Account account);
 
     /**
@@ -25,5 +27,6 @@ public interface AccountMapper {
      * @param accountDto dto "аккаунта".
      * @return {@link Account} сущность "аккаунт".
      */
+    @Mapping(target = "accountRole", ignore = true)
     Account toEntity(AccountDto accountDto);
 }

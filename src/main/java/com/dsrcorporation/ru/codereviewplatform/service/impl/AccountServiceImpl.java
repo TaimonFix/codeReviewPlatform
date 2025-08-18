@@ -1,11 +1,12 @@
 package com.dsrcorporation.ru.codereviewplatform.service.impl;
 
 import com.dsrcorporation.ru.codereviewplatform.exception.EntityNotFoundException;
+import com.dsrcorporation.ru.codereviewplatform.exception.UserAlreadyExistsException;
 import com.dsrcorporation.ru.codereviewplatform.mapper.AccountMapper;
 import com.dsrcorporation.ru.codereviewplatform.model.dto.AccountDto;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.Account;
-import com.dsrcorporation.ru.codereviewplatform.model.entity.AccountRole;
 import com.dsrcorporation.ru.codereviewplatform.repository.AccountRepository;
+import com.dsrcorporation.ru.codereviewplatform.service.AccountRoleService;
 import com.dsrcorporation.ru.codereviewplatform.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountRoleService accountRoleService;
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -28,8 +30,13 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Long saveAccount(AccountDto accountDto) {
+        if (accountRepository.existsByName(accountDto.getName())) {
+            throw new UserAlreadyExistsException(
+                    "Пользователь с именем '" + accountDto.getName() + "' уже существует.");
+        }
         Account account = accountMapper.toEntity(accountDto);
-        account.setAccountRole(new AccountRole());
+        account.setAccountRole(accountRoleService.getByName(accountDto.getRole()));
+        account.setPasswordHash(passwordEncoder.encode(accountDto.getPassword()));
         return accountRepository.save(account).getId();
     }
 

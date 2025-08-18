@@ -1,5 +1,7 @@
 package com.dsrcorporation.ru.codereviewplatform.service.impl;
 
+import com.dsrcorporation.ru.codereviewplatform.exception.EntityNotFoundException;
+import com.dsrcorporation.ru.codereviewplatform.model.entity.AccountRole;
 import com.dsrcorporation.ru.codereviewplatform.repository.AccountRoleRepository;
 import com.dsrcorporation.ru.codereviewplatform.service.AccountRoleService;
 import lombok.RequiredArgsConstructor;
@@ -13,25 +15,16 @@ import org.springframework.stereotype.Service;
 public class AccountRoleServiceImpl implements AccountRoleService {
 
     private final AccountRoleRepository accountRoleRepository;
-    /**
-     * Получить id роли по названию.
-     *
-     * @param name название роли.
-     * @return id роли.
-     */
-    @Override
-    public Long getIdByName(final String name) {
-        return accountRoleRepository.getIdByName(name);
-    }
 
     /**
-     * Получить название роли по id.
+     * Получить {@link AccountRole} по названию.
      *
-     * @param id идентификатор роли.
-     * @return название роли.
+     * @param name название роли.
+     * @return {@link AccountRole}.
      */
     @Override
-    public String getNameById(final Long id) {
-        return accountRoleRepository.getNameById(id);
+    public AccountRole getByName(final String name) {
+        return accountRoleRepository.getByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("Роль '" + name + "' не найдена."));
     }
 }

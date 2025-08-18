@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS comment (
     FOREIGN KEY (file_id) REFERENCES file(id)
     );
 
-INSERT INTO account_role (name)
-VALUES ('TEACHER'),('STUDENT');
-
-INSERT INTO answer_status (name)
-values ('NOT_VIEWED'), ('UPDATED'), ('ACCEPTED'), ('REJECTED');
+-- INSERT INTO account_role (name)
+-- VALUES ('ROLE_TEACHER'),('ROLE_STUDENT');
+--
+-- INSERT INTO answer_status (name)
+-- values ('NOT_VIEWED'), ('UPDATED'), ('ACCEPTED'), ('REJECTED');

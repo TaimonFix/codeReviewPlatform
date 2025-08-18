@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
@@ -22,16 +23,9 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
-    /**
-     * Поиск аккаунта пользователя.
-     */
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
 
     /** Настройка доступа к api.
      *
@@ -42,9 +36,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-auth -> auth.requestMatchers("code-review-platform/signup").permitAll()
-        .requestMatchers("code-review-platform/**").authenticated())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+auth -> auth
+        .requestMatchers("/signup").permitAll()
+        .requestMatchers("/**").authenticated())
+                .formLogin(formLogin ->
+                        formLogin.defaultSuccessUrl("/menu")
+                                .permitAll())
+                .logout(logout -> logout.logoutSuccessUrl("/login"))
                 .build();
     }
 

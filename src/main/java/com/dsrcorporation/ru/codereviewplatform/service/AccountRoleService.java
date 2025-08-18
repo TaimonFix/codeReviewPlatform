@@ -1,23 +1,17 @@
 package com.dsrcorporation.ru.codereviewplatform.service;
 
+import com.dsrcorporation.ru.codereviewplatform.model.entity.AccountRole;
+
 /**
  * Сервис для работы с ролями пользователей.
  */
 public interface AccountRoleService {
 
     /**
-     * Получить id роли по названию.
+     * Получить {@link AccountRole} по названию.
      *
      * @param name название роли.
-     * @return id роли.
+     * @return {@link AccountRole}.
      */
-    Long getIdByName(String name);
-
-    /**
-     * Получить название роли по id.
-     *
-     * @param id идентификатор роли.
-     * @return название роли.
-     */
-    String getNameById(Long id);
+    AccountRole getByName(final String name);
 }
