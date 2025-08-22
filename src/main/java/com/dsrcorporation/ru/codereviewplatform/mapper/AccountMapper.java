@@ -12,21 +12,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface AccountMapper {
 
-    /**
-     * Маппинг: {@link Account} -> {@link AccountDto}.
-     *
-     * @param account сущность "аккаунт".
-     * @return {@link AccountDto} dto "аккаунта".
-     */
     @Mapping(source ="passwordHash", target = "password")
     AccountDto toDto(Account account);
 
-    /**
-     * Маппинг: {@link AccountDto} -> {@link Account}.
-     *
-     * @param accountDto dto "аккаунта".
-     * @return {@link Account} сущность "аккаунт".
-     */
     @Mapping(target = "accountRole", ignore = true)
     Account toEntity(AccountDto accountDto);
 }

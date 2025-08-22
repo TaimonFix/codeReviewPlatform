@@ -1,36 +1,60 @@
 package com.dsrcorporation.ru.codereviewplatform.service;
 
+import com.dsrcorporation.ru.codereviewplatform.exception.EntityNotFoundException;
+import com.dsrcorporation.ru.codereviewplatform.mapper.TaskMapper;
 import com.dsrcorporation.ru.codereviewplatform.model.dto.TaskDto;
-
+import com.dsrcorporation.ru.codereviewplatform.model.entity.Account;
+import com.dsrcorporation.ru.codereviewplatform.model.entity.Task;
+import com.dsrcorporation.ru.codereviewplatform.repository.TaskRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Сервис для работы с заданиями.
+ * Сервис для работы с задачами.
  */
-public interface TaskService {
+@Service
+@RequiredArgsConstructor
+public class TaskService {
+
+    private final TaskRepository taskRepository;
+    private final AccountService accountService;
+    private final TaskMapper taskMapper;
 
     /**
      * Сохранить задание.
      *
+     * @param accountId идентификатор аккаунта.
      * @param taskDto данные о задании.
      * @return id задания.
      */
-    Long saveTask(TaskDto taskDto);
+    public Long save(Long accountId, TaskDto taskDto) {
+        Account account = accountService.getAccountById(accountId);
+        Task task = taskMapper.toEntity(taskDto);
+        task.setAccount(account);
+        return taskRepository.save(task).getId();
+    }
 
     /**
      * Получить задачу по id.
      *
      * @param id идентификатор задачи
      * @return {@link TaskDto} данные о задаче.
+     * @throws EntityNotFoundException в случае, если задачи нет в БД.
      */
-    TaskDto getTaskById(Long id);
+    public TaskDto getTaskById(Long id) {
+        return taskMapper.toDto(taskRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Задание с id '" + id + "' не найдено.")));
+    }
 
     /**
      * Получить все задачи.
      *
      * @return Список {@link TaskDto} задач.
      */
-    List<TaskDto> getTasks();
+    public List<TaskDto> getTasks() {
+        return taskMapper.toDtoList(taskRepository.findAll());
+    }
 
     /**
      * Получить все задачи по id пользователя.
@@ -38,12 +62,17 @@ public interface TaskService {
      * @param accountId идентификатор пользователя.
      * @return Список {@link TaskDto} задач.
      */
-    List<TaskDto> getTasksByAccountId(Long accountId);
+    public List<TaskDto> getTasksByAccountId(Long accountId) {
+        return taskMapper.toDtoList(taskRepository.findAllByAccountId(accountId));
+    }
 
+    // TODO: Добавить проверку: удалять можно только свои задачи.
     /**
      * Удалить задачу.
      *
      * @param id идентификатор задачи
      */
-    void deleteTask(Long id);
+    public void deleteTask(Long id) {
+        taskRepository.deleteById(id);
+    }
 }

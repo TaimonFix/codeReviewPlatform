@@ -18,6 +18,15 @@ public class UserDetailsImpl implements UserDetails {
     private final Account account;
 
     /**
+     * Получить id аккаунта.
+     *
+     * @return id аккаунта.
+     */
+    public Long getAccountId() {
+        return account.getId();
+    }
+
+    /**
      * Получение роли.
      *
      * @return роль пользователя.

@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDto {
-    private String text;
+public class AssignedTaskDto {
+    private Long taskId;
     private Long accountId;
-    private Long answerId;
-    private Long fileId;
-    private Integer lineNumber;
 }

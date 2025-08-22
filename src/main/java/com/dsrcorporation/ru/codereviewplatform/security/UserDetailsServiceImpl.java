@@ -1,8 +1,8 @@
-package com.dsrcorporation.ru.codereviewplatform.service.impl;
+package com.dsrcorporation.ru.codereviewplatform.security;
 
 import com.dsrcorporation.ru.codereviewplatform.model.entity.Account;
 import com.dsrcorporation.ru.codereviewplatform.repository.AccountRepository;
-import com.dsrcorporation.ru.codereviewplatform.security.UserDetailsImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Реализация {@link UserDetailsService}. Поиск аккаунта пользователя.
+ * Реализация {@link UserDetailsService}. Сервис для поиска аккаунта пользователя.
  */
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     /**
      * Поиск аккаунта по имени.

@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * DTO - задание от преподавателя.
- */
 @Data
 @Builder
 @AllArgsConstructor
