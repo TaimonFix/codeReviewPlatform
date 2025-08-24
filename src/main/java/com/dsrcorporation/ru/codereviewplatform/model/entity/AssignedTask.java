@@ -1,9 +1,7 @@
 package com.dsrcorporation.ru.codereviewplatform.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Назначенная задача.
@@ -11,20 +9,23 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Builder
 @RequiredArgsConstructor
 @Table(name = "assigned_task")
+@AllArgsConstructor
 public class AssignedTask {
 
     /**
-     * Идентификатор назначенной задачи.
+     * Составной ключ.
      */
-    @Id
-    private Long id;
+    @EmbeddedId
+    private AssignedTaskId assignedTaskId;
 
     /**
      * Задача.
      */
     @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("taskId")
     @JoinColumn(name = "task_id")
     private Task task;
 
@@ -32,6 +33,7 @@ public class AssignedTask {
      * Пользователь, которому назначена задача.
      */
     @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("accountId")
     @JoinColumn(name = "account_id")
     private Account account;
 }

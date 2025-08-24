@@ -42,9 +42,9 @@ public class TaskService {
      * @return {@link TaskDto} данные о задаче.
      * @throws EntityNotFoundException в случае, если задачи нет в БД.
      */
-    public TaskDto getTaskById(Long id) {
-        return taskMapper.toDto(taskRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Задание с id '" + id + "' не найдено.")));
+    public Task getTaskById(final Long id) {
+        return taskRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Задание с id '" + id + "' не найдено."));
     }
 
     /**
@@ -62,7 +62,7 @@ public class TaskService {
      * @param accountId идентификатор пользователя.
      * @return Список {@link TaskDto} задач.
      */
-    public List<TaskDto> getTasksByAccountId(Long accountId) {
+    public List<TaskDto> getTasksByAccountId(final Long accountId) {
         return taskMapper.toDtoList(taskRepository.findAllByAccountId(accountId));
     }
 
@@ -72,7 +72,7 @@ public class TaskService {
      *
      * @param id идентификатор задачи
      */
-    public void deleteTask(Long id) {
+    public void deleteTask(final Long id) {
         taskRepository.deleteById(id);
     }
 }

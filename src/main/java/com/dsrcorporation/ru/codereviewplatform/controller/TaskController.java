@@ -5,6 +5,8 @@ import com.dsrcorporation.ru.codereviewplatform.model.entity.Account;
 import com.dsrcorporation.ru.codereviewplatform.security.UserDetailsImpl;
 import com.dsrcorporation.ru.codereviewplatform.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,13 +26,13 @@ public class TaskController {
 
     @GetMapping
     @PreAuthorize("hasRole('TEACHER')")
-    public List<TaskDto> getTasks(@AuthenticationPrincipal UserDetailsImpl user) {
-        return taskService.getTasksByAccountId(user.getAccountId());
+    public ResponseEntity<List<TaskDto>> getTasks(@AuthenticationPrincipal UserDetailsImpl user) {
+        return new ResponseEntity<>(taskService.getTasksByAccountId(user.getAccountId()), HttpStatus.OK);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('TEACHER')")
-    public Long saveTask(@AuthenticationPrincipal UserDetailsImpl user, @RequestBody TaskDto taskDto) {
-        return taskService.save(user.getAccountId(), taskDto);
+    public ResponseEntity<Long> save(@AuthenticationPrincipal UserDetailsImpl user, @RequestBody TaskDto taskDto) {
+        return new ResponseEntity<>(taskService.save(user.getAccountId(), taskDto), HttpStatus.CREATED);
     }
 }

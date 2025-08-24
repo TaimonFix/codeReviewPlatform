@@ -4,6 +4,8 @@ import com.dsrcorporation.ru.codereviewplatform.model.dto.AccountDto;
 import com.dsrcorporation.ru.codereviewplatform.security.jwt.JwtService;
 import com.dsrcorporation.ru.codereviewplatform.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,19 +28,18 @@ public class AccountController {
     private final UserDetailsService userDetailsService;
 
     @PostMapping("/signup")
-    public Long saveAccount(@RequestBody AccountDto accountDto) {
-        return accountService.save(accountDto);
+    public ResponseEntity<Long> save(@RequestBody AccountDto accountDto) {
+        return new ResponseEntity<>(accountService.save(accountDto), HttpStatus.CREATED);
+
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AccountDto accountDto) {
+    public ResponseEntity<String> login(@RequestBody AccountDto accountDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(accountDto.getName(), accountDto.getPassword())
         );
         UserDetails userDetails = userDetailsService.loadUserByUsername(accountDto.getName());
-        return jwtService.generateToken(userDetails);
-
-
+        return new ResponseEntity<>(jwtService.generateToken(userDetails), HttpStatus.OK);
     }
 
     @GetMapping("/menu")

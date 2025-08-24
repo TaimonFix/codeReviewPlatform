@@ -1,6 +1,7 @@
 package com.dsrcorporation.ru.codereviewplatform.security;
 
 import com.dsrcorporation.ru.codereviewplatform.security.jwt.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,9 +37,18 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
 auth -> auth
-                              .requestMatchers("/signup", "/login", "/logout").permitAll()
+                              .requestMatchers("/signup", "/login").permitAll()
                               .anyRequest().authenticated())
-//                .logout(logout -> logout.logoutSuccessUrl("/login"))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessHandler((request,
+                                               response,
+                                               authentication) -> {
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.getWriter().write("Exit...");
+                        })
+                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
