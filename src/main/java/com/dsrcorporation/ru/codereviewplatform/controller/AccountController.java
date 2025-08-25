@@ -41,9 +41,4 @@ public class AccountController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(accountDto.getName());
         return new ResponseEntity<>(jwtService.generateToken(userDetails), HttpStatus.OK);
     }
-
-    @GetMapping("/menu")
-    public String menu() {
-        return "menu";
-    }
 }

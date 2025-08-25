@@ -2,9 +2,7 @@ package com.dsrcorporation.ru.codereviewplatform.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Ответ на задание.
@@ -12,8 +10,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @RequiredArgsConstructor
+@Builder
 @Table(name = "answer")
+
 public class Answer {
 
     /**
@@ -24,21 +25,28 @@ public class Answer {
     @Column(name = "id")
     private Long id;
 
-    /**
-     * Аккаунт ученика, кто прислал ответ.
-     */
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id")
-    private Account account;
-
-    /**
-     * Задание, на которое выслан ответ.
-     */
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "task_id")
-    private Task task;
+    @JoinColumns({
+            @JoinColumn(name = "task_id", referencedColumnName = "task_id"),
+            @JoinColumn(name = "account_id", referencedColumnName = "account_id")
+    })
+    private AssignedTask assignedTask;
+//    /**
+//     * Аккаунт ученика, кто прислал ответ.
+//     */
+//    @NotNull
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "account_id")
+//    private Account account;
+//
+//    /**
+//     * Задание, на которое выслан ответ.
+//     */
+//    @NotNull
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "task_id")
+//    private Task task;
 
     /**
      * Статус ответ на задания.

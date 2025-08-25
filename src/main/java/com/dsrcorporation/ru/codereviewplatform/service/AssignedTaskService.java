@@ -1,5 +1,6 @@
 package com.dsrcorporation.ru.codereviewplatform.service;
 
+import com.dsrcorporation.ru.codereviewplatform.exception.EntityNotFoundException;
 import com.dsrcorporation.ru.codereviewplatform.mapper.AssignedTaskMapper;
 import com.dsrcorporation.ru.codereviewplatform.model.dto.AssignedTaskDto;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.AssignedTask;
@@ -27,7 +28,7 @@ public class AssignedTaskService {
                                 .assignedTaskId(new AssignedTaskId(
                                         assignedTaskDto.getTaskId(), assignedTaskDto.getAccountId()))
                                 .task(taskService.getTaskById(assignedTaskDto.getTaskId()))
-                                .account(accountService.getAccountById(assignedTaskDto.getAccountId()))
+                                .account(accountService.getById(assignedTaskDto.getAccountId()))
                                 .build();
         return assignedTaskMapper.toDto(assignedTaskRepository.save(assignedTask));
     }
@@ -39,5 +40,11 @@ public class AssignedTaskService {
 
     public List<AssignedTaskDto> getAssignedTasksByTaskId(Long taskId) {
         return assignedTaskMapper.toDtoList(assignedTaskRepository.findAllByTaskId(taskId));
+    }
+
+    public AssignedTask getAssignedTaskByAccountIdAndTaskId(Long accountId, Long taskId) {
+        return assignedTaskRepository.getByTaskIdAndAccountId(taskId, accountId)
+                .orElseThrow(() -> new EntityNotFoundException("Не удалось найти данные о назначении задачи!")
+        );
     }
 }

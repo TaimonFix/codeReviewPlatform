@@ -44,8 +44,8 @@ public class AccountService {
      * @return {@link Account} аккаунт пользователя.
      * @throws EntityNotFoundException в случае, если аккаунта нет в БД.
      */
-    public Account getAccountById(final Long id) {
-        return accountRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Аккаунт с id '" + id + "' не найден."));
+    public Account getById(final Long id) {
+        return accountRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Аккаунт с id '" + id + "' не найден."));
     }
 }

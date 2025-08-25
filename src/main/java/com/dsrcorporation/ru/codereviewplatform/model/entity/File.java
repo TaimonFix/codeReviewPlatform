@@ -25,17 +25,24 @@ public class File {
     private Long id;
 
     /**
-     * Путь к файлу.
+     * Исходный путь к файлу.
      */
     @NotNull
     @Column(name = "file_path")
     private String filePath;
 
     /**
+     * Путь файла на сервере.
+     */
+    @NotNull
+    @Column(name = "local_path")
+    private String localPath;
+
+    /**
      * Задание, для которого был прислан файл.
      */
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "answer_id")
     private Answer answer;
 }

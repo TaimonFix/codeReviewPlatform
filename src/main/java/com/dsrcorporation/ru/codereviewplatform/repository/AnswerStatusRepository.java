@@ -1,8 +1,11 @@
 package com.dsrcorporation.ru.codereviewplatform.repository;
 
+import com.dsrcorporation.ru.codereviewplatform.model.entity.AccountRole;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.AnswerStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * Репозиторий для работы со статусами ответов.
@@ -11,18 +14,10 @@ import org.springframework.stereotype.Repository;
 public interface AnswerStatusRepository extends JpaRepository<AnswerStatus, Long> {
 
     /**
-     * Получить id статуса по названию.
+     * Получить статус по названию.
      *
      * @param name название статуса.
-     * @return id роли.
+     * @return {@link Optional} {@link AnswerStatus} данные о роли.
      */
-    Long getIdByName(String name);
-
-    /**
-     * Получить название статуса по id.
-     *
-     * @param id идентификатор статуса.
-     * @return название статуса.
-     */
-    String getNameById(Long id);
+    Optional<AnswerStatus> getByName(String name);
 }

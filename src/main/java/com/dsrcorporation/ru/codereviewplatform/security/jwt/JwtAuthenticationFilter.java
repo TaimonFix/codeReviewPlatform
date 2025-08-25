@@ -1,6 +1,5 @@
 package com.dsrcorporation.ru.codereviewplatform.security.jwt;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -56,10 +55,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (JwtException e) {
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-            httpResponse.setContentType("application/json");
-            httpResponse.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
 }

@@ -12,5 +12,11 @@ import java.util.Optional;
 @Repository
 public interface AccountRoleRepository extends JpaRepository<AccountRole, Long> {
 
+    /**
+     * Получить роль по названию.
+     *
+     * @param name название роли.
+     * @return {@link Optional} {@link AccountRole} данные о роли.
+     */
     Optional<AccountRole> getByName(String name);
 }

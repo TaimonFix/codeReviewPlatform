@@ -29,7 +29,7 @@ public class TaskService {
      * @return id задания.
      */
     public Long save(Long accountId, TaskDto taskDto) {
-        Account account = accountService.getAccountById(accountId);
+        Account account = accountService.getById(accountId);
         Task task = taskMapper.toEntity(taskDto);
         task.setAccount(account);
         return taskRepository.save(task).getId();

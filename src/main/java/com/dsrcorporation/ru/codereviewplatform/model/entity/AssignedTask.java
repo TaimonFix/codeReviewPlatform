@@ -1,6 +1,7 @@
 package com.dsrcorporation.ru.codereviewplatform.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 /**
@@ -24,6 +25,7 @@ public class AssignedTask {
     /**
      * Задача.
      */
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("taskId")
     @JoinColumn(name = "task_id")
@@ -32,6 +34,7 @@ public class AssignedTask {
     /**
      * Пользователь, которому назначена задача.
      */
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("accountId")
     @JoinColumn(name = "account_id")
