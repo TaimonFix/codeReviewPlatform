@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /code-review-platform
+spring:
+  application:
+    name: codeReviewPlatform
+  datasource:
+    url: jdbc:postgresql://localhost:5432/code_review_platform
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: local
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+#      schema-locations: classpath:db/schema.sql
+      data-locations:  classpath:db/data.sql
+  servlet:
+    multipart:
+      enabled: true
+jwt:
+  secret-key: "my-secret-key-for-example-in-the-learning-targets"
+  expiration-time: 36000000
+
+
+
+
