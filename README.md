@@ -18,7 +18,8 @@
 
 ### file — хранилище файлов, присланные в виде ответа на задание
 * id — идентификатор файла (primary key)
-* file_path — строка, описывающая путь к файлу на сервере
+* file_path — строка, описывающая изначальный путь к файлу
+* local_path - строка, описывающая путь к файлу на сервере
 * answer_id — id ответа (foreign key → answer)
 
 ### task — задача (формируется преподавателем)
@@ -27,8 +28,14 @@
 * description — описание задачи
 * account_id — id пользователя (foreign key → account)
 
-### answer — ответ на задание (присылает пользователь)
+### answer — ответ на задание (присылает студент)
 * id — идентификатор ответа (primary key)
+* account_id — id пользователя (foreign key → account)
+* task_id — id задачи (foreign key → task)
+* answer_status_id — id статуса ответа (foreign key → answer_status)
+
+### assigned_task — назначенное задание (назначает преподаватель)
+* id — идентификатор назначенного задания (primary key)
 * account_id — id пользователя (foreign key → account)
 * task_id — id задачи (foreign key → task)
 * answer_status_id — id статуса ответа (foreign key → answer_status)
