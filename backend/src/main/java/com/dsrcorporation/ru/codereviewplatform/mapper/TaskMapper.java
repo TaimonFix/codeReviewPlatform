@@ -4,12 +4,9 @@ import com.dsrcorporation.ru.codereviewplatform.model.dto.TaskDto;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.Task;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
-
 import java.util.List;
 
-/**
- * Маппер для работы с заданиями.
- */
+/** Маппер для работы с {@link Task}. */
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface TaskMapper {
 

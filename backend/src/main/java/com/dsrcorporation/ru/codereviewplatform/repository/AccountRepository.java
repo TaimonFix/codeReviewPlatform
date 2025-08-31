@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Репозиторий для работы с аккаунтами пользователей.
- */
+/** Репозиторий для работы с {@link Account}.*/
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 

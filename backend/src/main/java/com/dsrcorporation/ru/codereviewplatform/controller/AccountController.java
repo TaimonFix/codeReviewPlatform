@@ -1,6 +1,7 @@
 package com.dsrcorporation.ru.codereviewplatform.controller;
 
 import com.dsrcorporation.ru.codereviewplatform.model.dto.AccountDto;
+import com.dsrcorporation.ru.codereviewplatform.model.entity.Account;
 import com.dsrcorporation.ru.codereviewplatform.security.jwt.JwtService;
 import com.dsrcorporation.ru.codereviewplatform.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -10,14 +11,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Контроллер для работы с аккаунтами.
- */
+/** Контроллер для работы с {@link Account}. */
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
@@ -29,7 +27,8 @@ public class AccountController {
 
     @PostMapping("/signup")
     public ResponseEntity<Long> save(@RequestBody AccountDto accountDto) {
-        return new ResponseEntity<>(accountService.save(accountDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(accountService.save(accountDto),
+                HttpStatus.CREATED);
 
     }
 
@@ -39,6 +38,7 @@ public class AccountController {
                 new UsernamePasswordAuthenticationToken(accountDto.getName(), accountDto.getPassword())
         );
         UserDetails userDetails = userDetailsService.loadUserByUsername(accountDto.getName());
-        return new ResponseEntity<>(jwtService.generateToken(userDetails), HttpStatus.OK);
+        return new ResponseEntity<>(jwtService.generateToken(userDetails),
+                HttpStatus.OK);
     }
 }

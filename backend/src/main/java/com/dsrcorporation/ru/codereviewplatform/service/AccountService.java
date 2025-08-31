@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
- * Сервис для работы с аккаунтами.
- */
+/** Сервис для работы с аккаунтами. */
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -26,7 +24,7 @@ public class AccountService {
      * @param accountDto аккаунт пользователя.
      * @return id аккаунта.
      */
-    public Long save(AccountDto accountDto) {
+    public Long save(final AccountDto accountDto) {
         if (accountRepository.existsByName(accountDto.getName())) {
             throw new EntityAlreadyExistsException(
                     "Пользователь с именем '" + accountDto.getName() + "' уже существует.");
@@ -44,7 +42,7 @@ public class AccountService {
      * @return {@link Account} аккаунт пользователя.
      * @throws EntityNotFoundException в случае, если аккаунта нет в БД.
      */
-    public Account getById(final Long id) {
+    public Account findById(final Long id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Аккаунт с id '" + id + "' не найден."));
     }

@@ -2,6 +2,10 @@ server:
   port: 8080
   servlet:
     context-path: /code-review-platform
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 spring:
   application:
     name: codeReviewPlatform
@@ -20,6 +24,8 @@ spring:
       mode: always
 #      schema-locations: classpath:db/schema.sql
       data-locations:  classpath:db/data.sql
+  messages:
+    encoding: UTF-8
   servlet:
     multipart:
       enabled: true

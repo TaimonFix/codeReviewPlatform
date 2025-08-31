@@ -6,9 +6,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-/**
- * Маппер для работы с аккаунтами.
- */
+/** Маппер для работы с {@link Account}. */
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface AccountMapper {
 

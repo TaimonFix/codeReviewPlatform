@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Сервис для работы с назначенными задачами.
- */
+/** Сервис для работы с {@link AssignedTask}. */
 @Service
 @RequiredArgsConstructor
 public class AssignedTaskService {
@@ -23,26 +21,26 @@ public class AssignedTaskService {
     private final TaskService taskService;
     private final AccountService accountService;
 
-    public AssignedTaskDto save(AssignedTaskDto assignedTaskDto) {
+    public AssignedTaskDto save(final AssignedTaskDto assignedTaskDto) {
         AssignedTask assignedTask = AssignedTask.builder()
                                 .assignedTaskId(new AssignedTaskId(
                                         assignedTaskDto.getTaskId(), assignedTaskDto.getAccountId()))
-                                .task(taskService.getTaskById(assignedTaskDto.getTaskId()))
-                                .account(accountService.getById(assignedTaskDto.getAccountId()))
+                                .task(taskService.findById(assignedTaskDto.getTaskId()))
+                                .account(accountService.findById(assignedTaskDto.getAccountId()))
                                 .build();
         return assignedTaskMapper.toDto(assignedTaskRepository.save(assignedTask));
     }
 
 
-    public List<AssignedTaskDto> getAssignedTasksByAccountId(Long accountId) {
+    public List<AssignedTaskDto> getAssignedTasksByAccountId(final Long accountId) {
         return assignedTaskMapper.toDtoList(assignedTaskRepository.findAllByAccountId(accountId));
     }
 
-    public List<AssignedTaskDto> getAssignedTasksByTaskId(Long taskId) {
+    public List<AssignedTaskDto> getAssignedTasksByTaskId(final Long taskId) {
         return assignedTaskMapper.toDtoList(assignedTaskRepository.findAllByTaskId(taskId));
     }
 
-    public AssignedTask getAssignedTaskByAccountIdAndTaskId(Long accountId, Long taskId) {
+    public AssignedTask getAssignedTaskByAccountIdAndTaskId(final Long accountId, Long taskId) {
         return assignedTaskRepository.getByTaskIdAndAccountId(taskId, accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Не удалось найти данные о назначении задачи!")
         );

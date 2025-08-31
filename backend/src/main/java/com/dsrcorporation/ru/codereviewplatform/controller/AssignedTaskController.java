@@ -4,6 +4,7 @@ import com.dsrcorporation.ru.codereviewplatform.model.dto.AssignedTaskDto;
 
 import com.dsrcorporation.ru.codereviewplatform.security.UserDetailsImpl;
 import com.dsrcorporation.ru.codereviewplatform.service.AssignedTaskService;
+import com.dsrcorporation.ru.codereviewplatform.model.entity.AssignedTask;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-/**
- * Контроллер для работы с назначенными задачами.
- */
+/** Контроллер для работы с {@link AssignedTask}. */
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/assigned-tasks")
@@ -31,7 +30,8 @@ public class AssignedTaskController {
     @PostMapping
     @PreAuthorize("hasRole('TEACHER')")
     public ResponseEntity<AssignedTaskDto> save(@RequestBody AssignedTaskDto assignedTaskDto) {
-        return new ResponseEntity<>(assignedTaskService.save(assignedTaskDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(assignedTaskService.save(assignedTaskDto),
+                HttpStatus.CREATED);
     }
 
     @GetMapping

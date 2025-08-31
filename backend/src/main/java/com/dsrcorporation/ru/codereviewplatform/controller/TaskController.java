@@ -1,6 +1,7 @@
 package com.dsrcorporation.ru.codereviewplatform.controller;
 
 import com.dsrcorporation.ru.codereviewplatform.model.dto.TaskDto;
+import com.dsrcorporation.ru.codereviewplatform.model.entity.Task;
 import com.dsrcorporation.ru.codereviewplatform.security.UserDetailsImpl;
 import com.dsrcorporation.ru.codereviewplatform.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Контроллер для работы с задачами.
- */
+/** Контроллер для работы с {@link Task}. */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tasks")

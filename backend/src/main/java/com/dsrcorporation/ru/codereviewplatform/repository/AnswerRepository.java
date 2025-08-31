@@ -4,9 +4,7 @@ import com.dsrcorporation.ru.codereviewplatform.model.entity.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/**
- * Репозиторий для работы с ответами от пользователей.
- */
+/** Репозиторий для работы с {@link Answer}.*/
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 }

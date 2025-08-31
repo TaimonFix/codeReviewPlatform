@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Репозиторий для работы с назначенными задачами.
- */
+/** Репозиторий для работы с {@link AssignedTask}.*/
 public interface AssignedTaskRepository extends JpaRepository<AssignedTask, Long> {
 
     /**

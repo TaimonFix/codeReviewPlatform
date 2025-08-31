@@ -1,15 +1,12 @@
 package com.dsrcorporation.ru.codereviewplatform.repository;
 
-import com.dsrcorporation.ru.codereviewplatform.model.entity.AccountRole;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.AnswerStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Репозиторий для работы со статусами ответов.
- */
+/** Репозиторий для работы с {@link AnswerStatus}.*/
 @Repository
 public interface AnswerStatusRepository extends JpaRepository<AnswerStatus, Long> {
 
