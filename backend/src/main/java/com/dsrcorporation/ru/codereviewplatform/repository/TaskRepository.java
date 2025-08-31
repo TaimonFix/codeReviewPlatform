@@ -1,15 +1,12 @@
 package com.dsrcorporation.ru.codereviewplatform.repository;
 
-import com.dsrcorporation.ru.codereviewplatform.model.dto.TaskDto;
 import com.dsrcorporation.ru.codereviewplatform.model.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Репозиторий для работы с заданиями.
- */
+/** Репозиторий для работы с {@link Task}.*/
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 

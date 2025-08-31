@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FileDto {
-    private MultipartFile file;
-    private String name;
+    private Long fileId;
+    private String filePath;
     private Long answerId;
 }

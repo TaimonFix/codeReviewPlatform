@@ -5,9 +5,9 @@ import com.dsrcorporation.ru.codereviewplatform.model.entity.AssignedTask;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import java.util.List;
 
+/** Маппер для работы с {@link AssignedTask}. */
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface AssignedTaskMapper {
 

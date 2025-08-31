@@ -6,9 +6,7 @@ import com.dsrcorporation.ru.codereviewplatform.repository.AnswerStatusRepositor
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * Сервис для работы со статусами ответов.
- */
+/** Сервис для работы с {@link AnswerStatus}. */
 @Service
 @RequiredArgsConstructor
 public class AnswerStatusService {
@@ -23,6 +21,6 @@ public class AnswerStatusService {
      */
     public AnswerStatus getByName(final String name) {
         return answerStatusRepository.getByName(name)
-                .orElseThrow(() -> new EntityNotFoundException("Роль '" + name + "' не найдена."));
+                .orElseThrow(() -> new EntityNotFoundException("Статус '" + name + "' не найден."));
     }
 }

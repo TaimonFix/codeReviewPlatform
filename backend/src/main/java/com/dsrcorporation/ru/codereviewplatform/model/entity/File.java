@@ -2,9 +2,7 @@ package com.dsrcorporation.ru.codereviewplatform.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Метаданные о файле, который прислал пользователь.
@@ -13,7 +11,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@Builder
 @Table(name = "file")
+@AllArgsConstructor
 public class File {
 
     /**
@@ -35,7 +35,7 @@ public class File {
      * Путь файла на сервере.
      */
     @NotNull
-    @Column(name = "local_path")
+    @Column(name = "local_path", unique = true)
     private String localPath;
 
     /**

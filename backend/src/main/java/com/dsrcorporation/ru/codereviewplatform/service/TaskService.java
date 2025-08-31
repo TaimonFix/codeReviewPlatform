@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-/**
- * Сервис для работы с задачами.
- */
+/** Сервис для работы с {@link Task}. */
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -28,8 +26,8 @@ public class TaskService {
      * @param taskDto данные о задании.
      * @return id задания.
      */
-    public Long save(Long accountId, TaskDto taskDto) {
-        Account account = accountService.getById(accountId);
+    public Long save(final Long accountId, final TaskDto taskDto) {
+        Account account = accountService.findById(accountId);
         Task task = taskMapper.toEntity(taskDto);
         task.setAccount(account);
         return taskRepository.save(task).getId();
@@ -42,18 +40,21 @@ public class TaskService {
      * @return {@link TaskDto} данные о задаче.
      * @throws EntityNotFoundException в случае, если задачи нет в БД.
      */
-    public Task getTaskById(final Long id) {
+    public Task findById(final Long id) {
         return taskRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Задание с id '" + id + "' не найдено."));
     }
 
     /**
-     * Получить все задачи.
+     * Проверка: является ли пользователь создателем задачи.
      *
-     * @return Список {@link TaskDto} задач.
+     * @param accountId id пользователя.
+     * @param taskId id задачи
+     * @return true (если является).
      */
-    public List<TaskDto> getTasks() {
-        return taskMapper.toDtoList(taskRepository.findAll());
+    public boolean isTaskCreator(final Long accountId, final Long taskId) {
+        Task task = findById(taskId);
+        return task.getAccount().getId().equals(accountId);
     }
 
     /**
@@ -64,15 +65,5 @@ public class TaskService {
      */
     public List<TaskDto> getTasksByAccountId(final Long accountId) {
         return taskMapper.toDtoList(taskRepository.findAllByAccountId(accountId));
-    }
-
-    // TODO: Добавить проверку: удалять можно только свои задачи.
-    /**
-     * Удалить задачу.
-     *
-     * @param id идентификатор задачи
-     */
-    public void deleteTask(final Long id) {
-        taskRepository.deleteById(id);
     }
 }

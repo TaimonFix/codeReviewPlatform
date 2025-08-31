@@ -6,9 +6,7 @@ import com.dsrcorporation.ru.codereviewplatform.repository.AccountRoleRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * Сервис для работы с ролями аккаунтов.
- */
+/** Сервис для работы с {@link AccountRole}. */
 @Service
 @RequiredArgsConstructor
 public class AccountRoleService {
